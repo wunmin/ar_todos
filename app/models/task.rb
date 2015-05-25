@@ -8,6 +8,34 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def self.all_completed
+    task_array = Task.all
+    new_array = []
+    task_array.each do |task|
+      if task.completed == true
+        new_array << task
+      end
+    end
+
+    new_array.each_with_index do |t, index|
+      puts "#{index + 1}. #{t.task_description}"
+      end
+  end
+
+  def self.all_incomplete
+    task_array = Task.all
+    new_array = []
+    task_array.each do |task|
+      if task.completed == false
+        new_array << task
+      end
+    end
+
+    new_array.each_with_index do |t, index|
+      puts "#{index + 1}. #{t.task_description}"
+      end
+  end
+
   def self.add(new_task_desc)
   Task.create :task_description => new_task_desc, :completed => false
     p "Added '#{new_task_desc}'' to your task list."
@@ -49,5 +77,7 @@ class Task < ActiveRecord::Base
       list
     end
   end
+
+
 
 end
